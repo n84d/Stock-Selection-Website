@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Portfolio{% endblock %}
+{% block header %}
+    <h1 class="title">Portfolios</h1>
+{% endblock %}
+{% block content %}
+    <div class="portfolio-panel">
+        <div id="buttons">
+            <button class="portfolio-button" id="23q4-button">2023 Q4</button>
+            <div id="23q4-text" class="button-text">Portfolio for the quarter beginning October 2, 2023</div>
+            <button class="portfolio-button" id="24q1-button">2024 Q1</button>
+            <div id="24q1-text" class="button-text">Portfolio for the quarter beginning January 2, 2024</div>
+            <button class="portfolio-button" id="24q2-button">2024 Q2</button>
+            <div id="24q2-text" class="button-text">Portfolio for the quarter beginning April 1, 2024</div>
+        </div>
+        <div id="portfolio-container"></div>
+    </div>
+{% endblock %}

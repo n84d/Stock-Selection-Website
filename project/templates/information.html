@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block title %}Information{% endblock %}
+{% block header %}
+    <h1 class="title">Information</h1>
+{% endblock %}
+{% block content %}
+    <div class="big-panel">
+        <h4 class="info-title">Introduction</h4>
+        <p class="info-text">
+            Artificial intelligence is becoming increasingly relevant to the world of finance. On this website, you have the opportunity to take advantage of the financial insights that AI provides. 
+        </p>
+        <h4 class="info-title">Background</h4>
+        <p class="info-text">
+            Some equity researchers will work for up to 80 hours a week trying to identify outperforming stocks. Even with all of this time and effort, 90% of hedge funds ultimately underperform the S&P 500 index. If you are anything like me, you probably find this information discouraging. Despite these daunting statistics, I remained motivated to find an investment strategy that could outperform the market. After years of failed attempts, I turned to my knowledge of machine learning to devise an equity selection program that would outperform the S&P 500 over the long-term. 
+        </p>      
+        <h4 class="info-title">About the Model</h4>
+        <p class="info-text">
+            By training a neural network model on over 13 years of financial data sourced from Bloomberg, I was able to create a machine learning algorithm that effectively classifies stocks that are likely to outperform the market on a quarterly basis. For each quarter since 2010, every stock in the S&P 500 index was classified as either a “1” meaning it outperformed the S&P 500 over the course of the quarter, or a “0” if it underperformed. Over thousands of iterations, the machine was eventually able to recognize patterns that would distinguish an outperformer from an underperformer within the index.
+            <br></br>
+            Before using this program to guide my own investments, I verified that the model works using test data. In the training process, I broke off a random 30% of the available data and set it aside. Once the model had learned from the 70% of data as mentioned above, I verified that it had learned effectively by deploying the weights and biases of the model onto the 30% subset of test data. Here is how the model performed on the test data over 55 quarters: 
+        </p>
+        <div class="graph-image">
+            <img src="{{ url_for('static', filename='TestPerformance.png') }}">
+        </div>
+        <p class="info-text">
+            In testing, the model was able to select portfolios of stocks that would outperform the market in 65.45% of quarters since 2010. Over time, the small outperformances begin to compound on each other, which leads to extremely favorable returns relative to the S&P 500 in the long term.
+        </p>
+        <h4 class="info-title">How Can We Be Sure that the Test Data is Representative?</h4>
+        <p class="info-text">
+            Before applying the weights and biases of the model to the testing dataset, I was confident that the model would perform well. The reason for this confidence has to do with my use of validation data. Throughout the training process, (recall the 70% subset that we defined earlier) I would break off 10% of this subset with each iteration of learning. Throughout the training process, accuracy and RMSE (root mean squared error) behaved similarly on both the training and validation sets. Because validation data effectively acts like test data throughout the training process, I was confident that the accuracy metrics that I saw at the end of the training process would closely mimic the ones I saw after deploying the model to test data. When the aforementioned metrics for train, validation, and test data are all within close range of each other, it can be reasonably assumed that overfitting was avoided. 
+        </p>
+        <div class="graph-image">
+            <img src="{{ url_for('static', filename='TrainingProcess.png') }}">
+        </div>
+        <h4 class="info-title">How Are Stocks Selected?</h4>
+        <p class="info-text">
+            There are well over 20,000 stocks and their respective performances listed in the dataset. The test subset broke off 6000 of these. After deploying the model onto test data, each stock receives a prediction value between “0” and “1.” The closer a prediction is to 1, the more confident the model is that a particular stock will outperform that quarter. The same principle applies to predictions close to 0. Below is a picture that shows the distribution of these predictions:
+        </p>
+        <div class="graph-image">
+            <img src="{{ url_for('static', filename='TestPredictions.png') }}">
+        </div>
+        <p class="info-text">
+            These are the predictions for every stock listed in the test dataset. You can see that the average prediction is slightly below .5. After breaking these predictions into their respective quarters, the top 10 prediction values from each quarter were allocated to a “test portfolio.” The performance of these quarterly portfolios is what we saw in the “Test Data Returns” chart earlier. For the current quarter, this is what the distribution of predictions looks like:
+        </p>
+        <div class="graph-image">
+            <img src="{{ url_for('static', filename='CurrentTestPredictions.png') }}">
+        </div>
+        <p class="info-text">
+            The top 10 of these predictions were matched to their respective ticker and added to the portfolio shown on the portfolio page. 
+        </p>
+        <h4 class="info-title">Further Questions?</h4>
+        <p class="info-text">
+            If you have any questions or are interested in learning more about how the model was developed, feel free to shoot me an email anytime: you can reach me at n8ford22@icloud.com
+        </p>
+    </div>
+{% endblock %}

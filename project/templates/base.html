@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+        <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/portfolios.js"></script>
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" crossorigin="anonymous"></script>
+
+        <title>{% block title %}{% endblock %}</title>
+        
+    </head>
+    <body>
+        {% block header %}
+        <h1 class="title">Welcome to The Future of Equity Research</h1>
+        <p class="sub-title">Stock Selection Using Machine Learning</p>
+        {% endblock %}
+        <div class="nav">
+            <nav>
+                <a class="menu-item" href="{{ url_for('views.home') }}">Home</a>
+                <a class="menu-item nav-link" id="logout" href="/portfolio">Portfolios</a>
+            </nav>
+        </div>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    {% if category == 'error' %}
+                        <div 
+                            class="alert alert-success alter-dismissable fade show" 
+                            role="alert"
+                            style="background-color: rgb(255, 167, 167); color: rgb(155, 25, 25); margin: 2%; position: relative; text-align: left; font-size: 20px; padding: 1em; padding-left: 2%; border-radius: 5px;">
+                            {{ message }}
+                            <button type="button" class="close" data-dismiss="alert">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        {% else %}
+                        <div 
+                            class="alert alert-danger alter-dismissable fade show" 
+                            role="alert"
+                            style="background-color: rgb(200, 255, 205); color: rgb(11, 80, 22); margin: 2%; position: relative; text-align: left; font-size: 20px; padding: 1em; padding-left: 2%; border-radius: 5px;">
+                            {{ message }}
+                            <button type="button" class="close" data-dismiss="alert">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        {% block chart %}{% endblock%}
+        {% block content %}{% endblock %}
+        <script src="{{ url_for('static', filename='portfolios.js') }}"></script>
+    </body>
+</html>
+

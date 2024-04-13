@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block chart %}
+    <div class="body-panel">
+        <div class="chart-panel">
+            <canvas class="chart" id="myChart"></canvas>
+            <script src="{{ url_for('static', filename='chart-script.js') }}"></script>
+        </div>
+        <div class="chart-footer">
+            <p class="footer-text">Performance Since Inception on October 2, 2023</p>
+        </div>
+    </div>
+{% endblock %}
