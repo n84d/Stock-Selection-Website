@@ -2,13 +2,25 @@ import pandas as pd
 import numpy as np
 import yfinance as yf
 import warnings
+import os
 
 # Suppress FutureWarnings from yfinance
 warnings.simplefilter(action='ignore', category=FutureWarning)
 
-q1 = pd.read_excel('C:/Users/nford1/Documents/StockPicks/PredictionsDatabase.xlsx', sheet_name='23q4')
-q2 = pd.read_excel('C:/Users/nford1/Documents/StockPicks/PredictionsDatabase.xlsx', sheet_name='24q1')
-q3 = pd.read_excel('C:/Users/nford1/Documents/StockPicks/PredictionsDatabase.xlsx', sheet_name='24q2')
+# Get the current directory of the script
+current_directory = os.path.dirname(__file__)
+
+# Assuming your script file is in the same directory as the "static" folder
+static_folder = os.path.join(current_directory, 'static')
+
+# Assuming your Excel file is in the "static" folder
+excel_file_path = os.path.join(static_folder, 'PredictionsDatabase.xlsx')
+
+# Read Excel sheets
+q1 = pd.read_excel(excel_file_path, sheet_name='23q4')
+q2 = pd.read_excel(excel_file_path, sheet_name='24q1')
+q3 = pd.read_excel(excel_file_path, sheet_name='24q2')
+
 
 # make a list of all predictions
 dfs = [q1, q2, q3]
